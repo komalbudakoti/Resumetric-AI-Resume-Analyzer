@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Resumetric AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="main-content">
+        <div class="card">
+            <div class="section-head">
+                <span class="eyebrow">Analysis Result</span>
+                <h1>Match Analysis</h1>
+            </div>
+            
+            <div class="stats-grid">
+                <div style="text-align: center;">
+                    <i class="fas fa-bullseye" style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 10px;"></i>
+                    <h3>Job Match</h3>
+                    <div class="score-circle" style="margin: 0 auto;">
+                        {{ match_percentage }}%
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <h3>ATS Readability</h3>
+                    <div class="score-circle" style="margin: 0 auto; border-color: var(--accent-color);">
+                        {{ ats_score }}%
+                    </div>
+                    <ul class="advice-list" style="text-align: left; margin-top: 20px;">
+                        {% for detail in ats_details %}
+                            <li>{{ detail }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stats-grid" style="margin-top: 40px;">
+                <div class="info-card">
+                    <h3>Matched Skills</h3>
+                    <div class="skill-list">
+                        {% for skill in matched_skills %}
+                            <span class="skill-tag matched">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3>Missing Skills</h3>
+                    <div class="skill-list">
+                        {% for skill in missing_skills %}
+                            <span class="skill-tag missing">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3>Sentence Improvements</h3>
+                <p class="lead" style="font-size: 0.9rem; margin-bottom: 20px;">
+                    AI suggested rewrites to make your experience sound more impactful:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Original Sentence</th>
+                            <th>AI Recommended Rewrite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in sentence_improvements %}
+                        <tr>
+                            <td class="table-original">"{{ item.original }}"</td>
+                            <td class="table-improved">{{ item.improved }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h3>Structural Advice</h3>
+                <ul class="advice-list">
+                    {% for tip in structural_tips %}
+                        <li><span class="skill-tag missing" style="padding: 4px 8px; font-size: 0.7rem; margin-right: 8px;">FIX</span> {{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="action-row" style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                <a href="/analyze" class="back-btn">← Analyze Another Resume</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

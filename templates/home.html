@@ -1,0 +1,58 @@
+<head>
+    <title>Dashboard - Resumetric AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    {% include 'sidebar.html' %}
+<div class="main-content">
+    <div class="card">
+    <div class="section-head">
+        <span class="eyebrow">The Future of Hiring</span>
+        <h1>Stop Guessing, Start Optimizing</h1>
+        <p class="lead">
+            75% of resumes are rejected by automated systems before a human ever sees them. 
+            Resumetric AI helps you bridge the gap between your experience and recruiter expectations.
+        </p>
+        
+        <div style="margin-top: 32px;">
+            <a href="/analyze" class="cta-btn" style="text-decoration: none; display: inline-block; width: auto; padding: 16px 40px;">
+                Get Started Now
+            </a>
+        </div>
+    </div>
+
+    <div class="stats-grid" style="margin-top: 60px;">
+        <div class="info-card">
+            <h3>📊 ATS Scoring</h3>
+            <p style="color: var(--muted-color); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
+                Our algorithm runs a structural audit on your resume, checking contact info, section headers, and word counts to ensure it's "bot-friendly".
+            </p>
+        </div>
+
+        <div class="info-card">
+            <h3>🔍 Semantic Match</h3>
+            <p style="color: var(--muted-color); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
+                Using Vector Embeddings, we calculate how closely your skills align with the Job Description beyond just simple keyword matching.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <h3>✍️ AI Rewriting</h3>
+            <p style="color: var(--muted-color); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
+                Powered by Llama 3.3, get instant sentence-level improvements that make your professional experience sound more impactful.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <h3>🛡️ Privacy First</h3>
+            <p style="color: var(--muted-color); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
+                Your data is sanitized locally. We remove sensitive PII like phone numbers and emails before any cloud analysis occurs.
+            </p>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

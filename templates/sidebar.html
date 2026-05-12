@@ -1,0 +1,25 @@
+<div class="sidebar">
+    <div class="brand">
+        <div>
+            <h2 style="margin: 0; font-size: 1.1rem; letter-spacing: 0.6px;">Resumetric AI</h2>
+            <p style="margin: 0; font-size: 0.7rem; opacity: 0.7;">Smart Optimization</p>
+        </div>
+    </div>
+
+    <nav style="margin-top: 40px; display: flex; flex-direction: column; gap: 8px;">
+    <a href="/" class="nav-item {% if request.path == '/' %}active{% endif %}" style="display: flex; align-items: center;">
+        <i class="fas fa-home" style="width: 24px; margin-right: 12px; font-size: 1.1rem;"></i> 
+        <span>Dashboard</span>
+    </a>
+
+    <a href="/analyze" class="nav-item {% if request.path == '/analyze' %}active{% endif %}" style="display: flex; align-items: center;">
+        <i class="fas fa-magnifying-glass-chart" style="width: 24px; margin-right: 12px; font-size: 1.1rem;"></i> 
+        <span>Analyze Resume</span>
+    </a>
+
+    <a href="/about" class="nav-item {% if request.path == '/about' %}active{% endif %}" style="display: flex; align-items: center;">
+        <i class="fas fa-microchip" style="width: 24px; margin-right: 12px; font-size: 1.1rem;"></i> 
+        <span>System Logic</span>
+    </a>
+</nav>
+</div>

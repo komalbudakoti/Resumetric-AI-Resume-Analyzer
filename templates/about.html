@@ -1,0 +1,54 @@
+<head>
+    <title>System Logic - Resumetric AI</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<body>
+    {% include 'sidebar.html' %}
+    <div class="main-content">
+    <div class="card">
+    <div class="section-head">
+        <span class="eyebrow">Technical Overview</span>
+        <h1>The Architecture of Resumetric</h1>
+        <p class="lead">
+        A deep dive into the neural processing, semantic alignment, and privacy protocols that power our high-precision resume auditing.
+        </p>
+    </div>
+
+    <div class="stats-grid" style="margin-top: 40px;">
+        <div class="info-card">
+            <h3>🔍 Intelligence Engine</h3>
+            <p style="color: var(--muted-color); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
+                Instead of simple word-matching, our system understands the <strong>semantic meaning</strong> 
+                of your experience, ensuring that different but related job titles are recognized correctly.
+            </p>
+            <code style="font-size: 0.75rem; color: var(--primary-color); opacity: 0.6;">
+                Logic: Sentence-Transformers (all-MiniLM-L6-v2)
+            </code>
+        </div>
+
+        <div class="info-card">
+            <h3>🛡️ Privacy-First Analysis</h3>
+            <p style="color: var(--muted-color); font-size: 0.9rem; line-height: 1.6; margin-top: 10px;">
+                We prioritize your security by <strong>sanitizing</strong> sensitive data like contact 
+                details locally before the AI analysis begins.
+            </p>
+            <code style="font-size: 0.75rem; color: var(--primary-color); opacity: 0.6;">
+                Logic: Regex-based PII Masking
+            </code>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 30px; background: #f8faff;">
+        <h3 style="font-size: 1rem; color: var(--muted-color);">System Architecture</h3>
+        <div style="display: flex; gap: 20px; margin-top: 15px; font-size: 0.85rem; color: var(--primary-color); font-weight: 600;">
+            <span>Python / Flask</span> • 
+            <span>Groq LPU</span> • 
+            <span>Llama 3.3</span> • 
+            <span>spaCy NLP</span>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

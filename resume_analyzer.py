@@ -1,5 +1,4 @@
 import os
-import spacy
 import pdfplumber
 from docx import Document
 import tempfile
@@ -64,10 +63,13 @@ def clean_text_minimal(text):
 
 # clean text with spaCy
 def clean_text_sparse(text):
-    nlp = spacy.load("en_core_web_sm")
     text = fix_merged_words(text)
-    doc = nlp(text.lower())
-    return " ".join([t.lemma_ for t in doc if not t.is_stop and not t.is_punct])
+    words = text.lower().split()
+    stop_words = {"the", "and", "is", "in", "to", "of", "a", "with", "for", "on", "an"}
+    
+    # Keep words that aren't stop-words and are longer than 2 characters
+    cleaned = [w for w in words if w not in stop_words and len(w) > 2]
+    return " ".join(cleaned)
 
 #generate embeddings and Similarity Check 
 def similarity_check(safe_resume, safe_jd, clean_resume, clean_jd, model):

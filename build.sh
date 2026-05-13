@@ -1,8 +1,6 @@
-#!/bin/bash
-set -e
-
-# Install system dependencies required for building packages like blis, thinc, spacy
-apt-get update && apt-get install -y build-essential python3-dev libblas-dev liblapack-dev
+#!/usr/bin/env bash
+# exit on error
+set -o errexit
 
 # Upgrade packaging tools to avoid wheel/build errors
 python3 -m pip install --upgrade pip setuptools wheel

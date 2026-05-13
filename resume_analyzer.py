@@ -14,8 +14,6 @@ import json
 
 load_dotenv()
 
-nlp = spacy.load("en_core_web_sm")
-
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
     raise ValueError("GROQ_API_KEY is not set.")
@@ -66,6 +64,7 @@ def clean_text_minimal(text):
 
 # clean text with spaCy
 def clean_text_sparse(text):
+    nlp = spacy.load("en_core_web_sm")
     text = fix_merged_words(text)
     doc = nlp(text.lower())
     return " ".join([t.lemma_ for t in doc if not t.is_stop and not t.is_punct])

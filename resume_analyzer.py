@@ -5,7 +5,7 @@ from docx import Document
 import tempfile
 import re
 import numpy as np
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 from groq import Groq
@@ -15,7 +15,6 @@ import json
 load_dotenv()
 
 nlp = spacy.load("en_core_web_sm")
-model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
@@ -72,7 +71,7 @@ def clean_text_sparse(text):
     return " ".join([t.lemma_ for t in doc if not t.is_stop and not t.is_punct])
 
 #generate embeddings and Similarity Check 
-def similarity_check(safe_resume, safe_jd, clean_resume, clean_jd):
+def similarity_check(safe_resume, safe_jd, clean_resume, clean_jd, model):
 
     #Generate Embeddings
     resume_vector = model.embed_query(safe_resume)
@@ -201,6 +200,7 @@ def calculate_ats_score(text, file_extension):
     return int(score), details
 
 def process_uploaded_file(uploaded_file,job_description):
+    model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     
     suffix = ".pdf" if uploaded_file.filename.endswith('.pdf') else ".docx"
 
@@ -225,7 +225,7 @@ def process_uploaded_file(uploaded_file,job_description):
     sparse_res = clean_text_sparse(safe_resume)
     sparse_jd = clean_text_sparse(job_description)
 
-    match_percentage = similarity_check(dense_res, dense_jd, sparse_res, sparse_jd)
+    match_percentage = similarity_check(dense_res, dense_jd, sparse_res, sparse_jd, model)
     ats_score, ats_details = calculate_ats_score(raw_text, suffix)
     analysis = analyze_resume(safe_resume, job_description)
 

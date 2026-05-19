@@ -96,7 +96,7 @@ def similarity_check(safe_resume, safe_jd, clean_resume, clean_jd):
         sparse_score = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])[0][0]
     except Exception:
         sparse_score = dense_score
-    print(f"Dense: {dense_score}, Sparse: {sparse_score}")
+  
     # Combine dense and sparse scores with weighted average
     match_percentage = round(((0.8 * dense_score) + (0.2 * sparse_score))* 100, 2)
     return match_percentage

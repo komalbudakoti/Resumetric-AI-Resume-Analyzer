@@ -33,18 +33,10 @@ python -m spacy download en_core_web_sm
 ```
 
 ## Running the app
-If the app uses Streamlit (default):
 
 ```bash
 streamlit run app.py
 ```
-
-If there is a Flask backend, run:
-
-```bash
-python app.py
-```
-
 Then open the provided local URL in your browser.
 
 ## Dependencies

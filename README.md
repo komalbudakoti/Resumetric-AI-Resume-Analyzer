@@ -1,65 +1,78 @@
-# Resume Analyzer
+# ResumeAnalazer
 
-This project is a Flask-based resume analyzer that accepts a PDF or DOCX resume upload, receives a pasted job description, and returns a similarity match score with detailed analysis.
+A small Streamlit-based resume analysis app that extracts and evaluates resume content to provide insights and recommendations.
 
-## What it does
+## Features
+- Upload resume files (PDF/DOCX) and extract text
+- Analyze skills and match against job requirements
+- Provide scoring and suggestions
+- Uses ML/NLP libraries for embeddings and classification
 
-- Upload a PDF or DOCX resume
-- Paste a job description
-- Extract text from the resume
-- Compute semantic similarity using HuggingFace embeddings through `langchain-community`
-- Combine similarity with TF-IDF fallback scoring
-- Generate ATS-style resume feedback using Groq AI chat completions
-- Display matched skills, missing skills, sentence improvements, and structural tips
+## Installation
+1. Create a Python virtual environment (recommended):
 
-## Project files
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+```
 
-- `app.py` — Flask application routes and upload handling
-- `resume_analyzer.py` — resume extraction, cleaning, similarity scoring, ATS scoring, and AI feedback
-- `templates/` — HTML templates for home, analyze, about, and result pages
-- `static/style.css` — styling for the web interface
-
-## Requirements
-
-Install dependencies from `requirements.txt`:
+2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Then install the spaCy English model:
+3. If using spaCy model, install it (if not bundled):
 
 ```bash
+python -m pip install "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl"
 python -m spacy download en_core_web_sm
 ```
 
-## Configuration
+## Running the app
+If the app uses Streamlit (default):
 
-Create a `.env` file in the project root with your Groq API key:
-
-```env
-GROQ_API_KEY=your_api_key_here
+```bash
+streamlit run app.py
 ```
 
-## Running the app
-
-Start the Flask server:
+If there is a Flask backend, run:
 
 ```bash
 python app.py
 ```
 
-Open your browser at `http://127.0.0.1:5000/`.
+Then open the provided local URL in your browser.
 
-## Notes
+## Dependencies
+The project lists the following dependencies in `requirements.txt`:
 
-- The resume parser uses `pdfplumber` for PDF extraction and `python-docx` for DOCX extraction.
-- The similarity engine uses SentenceTransformer embeddings through `langchain-community`.
-- The AI feedback is generated with Groq chat completions and expects `GROQ_API_KEY`.
-- This project is designed for text-based resumes, not scanned images.
+- torch
+- torchvision
+- streamlit
+- Flask>=2.3.2
+- python-docx>=0.8.11
+- pdfplumber>=0.10.0
+- numpy>=1.26.0
+- scikit-learn>=1.3.2
+- langchain-huggingface
+- groq>=0.2.0
+- sentence-transformers>=2.2.2
+- nltk
+- spacy>=3.7.5,<3.8.0
+- en_core_web_sm (spaCy model wheel)
 
-## Troubleshooting
+## Project Structure
+- `app.py` - Streamlit or Flask front-end runner
+- `resume_analyzer.py` - Core resume parsing and analysis logic
+- `components.py` - UI components for the app
+- `styles.py` - Styling utilities
 
-- If resume extraction fails, confirm your file is not a scanned image.
-- If the Flask app fails to start, ensure dependencies are installed and your `.env` file is present.
-- If spaCy fails to load `en_core_web_sm`, rerun the model download command.
+## License
+Specify your project license here (e.g., MIT). 
+
+## Contact
+For questions or contributions, open an issue or contact the maintainer.

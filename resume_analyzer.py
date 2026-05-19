@@ -1,4 +1,5 @@
 import os
+import spacy
 import pdfplumber
 from docx import Document
 import tempfile
@@ -8,14 +9,22 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 from groq import Groq
-from dotenv import load_dotenv
 import json
+import streamlit as st
 
-load_dotenv()
+@st.cache_resource
+def load_models():
+    nlp = spacy.load("en_core_web_sm")
+    model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    return nlp, model
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-if not GROQ_API_KEY:
-    raise ValueError("GROQ_API_KEY is not set.")
+nlp, model = load_models()
+
+if "GROQ_API_KEY" not in st.secrets:
+    st.error("GROQ_API_KEY is not set in secrets.toml.")
+    st.stop()
+
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 client = Groq(api_key=GROQ_API_KEY)
 
@@ -64,15 +73,11 @@ def clean_text_minimal(text):
 # clean text with spaCy
 def clean_text_sparse(text):
     text = fix_merged_words(text)
-    words = text.lower().split()
-    stop_words = {"the", "and", "is", "in", "to", "of", "a", "with", "for", "on", "an"}
-    
-    # Keep words that aren't stop-words and are longer than 2 characters
-    cleaned = [w for w in words if w not in stop_words and len(w) > 2]
-    return " ".join(cleaned)
+    doc = nlp(text.lower())
+    return " ".join([t.lemma_ for t in doc if not t.is_stop and not t.is_punct])
 
 #generate embeddings and Similarity Check 
-def similarity_check(safe_resume, safe_jd, clean_resume, clean_jd, model):
+def similarity_check(safe_resume, safe_jd, clean_resume, clean_jd):
 
     #Generate Embeddings
     resume_vector = model.embed_query(safe_resume)
@@ -111,10 +116,10 @@ def analyze_resume(resume_text, jd_text):
             {{"original": "sentence 2", "improved": "better version 2"}},
             {{"original": "sentence 3", "improved": "better version 3"}}
         ],
-        "structural_tips": ["TIP: Brief title. EXPLANATION: Why this matters. EXAMPLE: How to do it."]
+        "structural_tips": ["TIP: Brief title. EXAMPLE: How to do it."]
     }}
      Rules for structural_tips:
-    1. Don't just give a title. Explain the benefit.
+    1. Don't just give a title.
     2. Provide a concrete example based on the user's data.
 
     Resume: {resume_text}
@@ -201,9 +206,9 @@ def calculate_ats_score(text, file_extension):
     return int(score), details
 
 def process_uploaded_file(uploaded_file,job_description):
-    model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     
-    suffix = ".pdf" if uploaded_file.filename.endswith('.pdf') else ".docx"
+    
+    suffix = ".pdf" if uploaded_file.name.endswith('.pdf') else ".docx"
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp_file:
         tmp_file.write(uploaded_file.getbuffer())
@@ -226,7 +231,7 @@ def process_uploaded_file(uploaded_file,job_description):
     sparse_res = clean_text_sparse(safe_resume)
     sparse_jd = clean_text_sparse(job_description)
 
-    match_percentage = similarity_check(dense_res, dense_jd, sparse_res, sparse_jd, model)
+    match_percentage = similarity_check(dense_res, dense_jd, sparse_res, sparse_jd)
     ats_score, ats_details = calculate_ats_score(raw_text, suffix)
     analysis = analyze_resume(safe_resume, job_description)
 

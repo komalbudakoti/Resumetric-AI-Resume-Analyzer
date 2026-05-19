@@ -71,8 +71,6 @@ The project lists the following dependencies in `requirements.txt`:
 - `components.py` - UI components for the app
 - `styles.py` - Styling utilities
 
-## License
-Specify your project license here (e.g., MIT). 
 
 ## Contact
 For questions or contributions, open an issue or contact the maintainer.

@@ -57,7 +57,7 @@ The project lists the following dependencies in `requirements.txt`:
 - en_core_web_sm (spaCy model wheel)
 
 ## Project Structure
-- `app.py` - Streamlit or Flask front-end runner
+- `app.py` - Main Streamlit application
 - `resume_analyzer.py` - Core resume parsing and analysis logic
 - `components.py` - UI components for the app
 - `styles.py` - Styling utilities

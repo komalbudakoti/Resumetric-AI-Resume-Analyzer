@@ -53,7 +53,6 @@ The project lists the following dependencies in `requirements.txt`:
 - torch
 - torchvision
 - streamlit
-- Flask>=2.3.2
 - python-docx>=0.8.11
 - pdfplumber>=0.10.0
 - numpy>=1.26.0

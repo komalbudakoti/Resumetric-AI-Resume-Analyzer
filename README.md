@@ -70,7 +70,3 @@ The project lists the following dependencies in `requirements.txt`:
 - `resume_analyzer.py` - Core resume parsing and analysis logic
 - `components.py` - UI components for the app
 - `styles.py` - Styling utilities
-
-
-## Contact
-For questions or contributions, open an issue or contact the maintainer.

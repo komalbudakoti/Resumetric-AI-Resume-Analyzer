@@ -1,12 +1,12 @@
-torch
-streamlit
+streamlit==1.45.1
+torch==2.2.2
 python-docx>=0.8.11
 pdfplumber>=0.10.0
 numpy>=1.26.0
 scikit-learn>=1.3.2
 langchain-huggingface
 groq>=0.2.0
-sentence-transformers>=2.2.2
+sentence-transformers==2.7.0
 nltk
-spacy==3.7.4
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.4/en_core_web_sm-3.7.4-py3-none-any.whl
+spacy==3.7.2
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl

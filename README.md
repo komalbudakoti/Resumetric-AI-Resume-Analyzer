@@ -1,6 +1,9 @@
-# ResumeAnalazer
+# Resume Analyzer AI
 
-A small Streamlit-based resume analysis app that extracts and evaluates resume content to provide insights and recommendations.
+A Streamlit-based AI-powered resume analysis tool that extracts, analyzes, and evaluates resumes to provide skill insights, ATS-style scoring, and job matching recommendations using NLP and machine learning.
+
+## 🚀 Live Demo
+👉 https://resumetric-ai-resume-analyzer.streamlit.app
 
 ## Features
 - Upload resume files (PDF/DOCX) and extract text
